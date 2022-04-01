@@ -66,17 +66,30 @@ void Stringsplit(std::string str, const char split, std::vector<std::string> &re
 int main(int argc, char** argv)
 {
 
-    std::string img_filename = "../data/baby/3.png";
-    std::string trimap_filename = "../data/trimaps_0.6/3.png";
-    std::string output_filename = "../data/baby/out_3.1.png";
-    cv::Mat img = cv::imread(img_filename, cv::IMREAD_COLOR);
-    cv::Mat trimap = cv::imread(trimap_filename, cv::IMREAD_GRAYSCALE);
+    std::string gFileLoadPath = '/home/jjho/code/data/bady';
 
-    RobustMatting rm(img, trimap);
-    rm.Run();
+    std::vector<std::string>allFileName = getFilesList(gFileLoadPath);
 
-    cv::Mat rst = rm.GetFinalMat();
-    cv::imwrite(output_filename, rst);
+    image->num = allFileName.size();
+
+    for (int i = 0; i < allFileName.size(); i++)
+    {
+        std::string filename = allFileName.at(i);
+
+        std::vector<std::string> splitRes;
+        Stringsplit(filename, '/', splitRes);
+
+        string img_filename = filename;
+        string trimap_filename = '/home/jjho/code/data/bady_trimap/' + splitRes[1] + '/' + splitRes[0];
+        string output_filename = '/home/jjho/code/data/output/'+ splitRes[1] + '/' + splitRes[0];
+        Mat img = imread(img_filename, IMREAD_COLOR);
+        Mat trimap = imread(trimap_filename, IMREAD_GRAYSCALE);
+
+        RobustMatting rm(img, trimap);
+        rm.Run();
+
+        Mat rst = rm.GetFinalMat();
+        imwrite(output_filename, rst);
 
     return 0;
 }
