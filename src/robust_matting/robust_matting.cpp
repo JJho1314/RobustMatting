@@ -20,7 +20,7 @@ RobustMatting::RobustMatting(const cv::Mat& img, const cv::Mat& trimap)
     img.convertTo(m_image, CV_32FC3);
     m_trimap = trimap;
     if (m_trimap.channels() > 1)
-        cvtColor(m_trimap, m_trimap, CV_BGR2GRAY);
+        cvtColor(m_trimap, m_trimap, COLOR_BGR2GRAY);
     m_result = Mat(m_image.size(), CV_8UC1);
 }
 
